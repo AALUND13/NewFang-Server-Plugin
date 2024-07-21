@@ -28,7 +28,7 @@ namespace NewFangServerPlugin.API {
 
         public GithubAutoUpdate(string repository, string pluginName, int updateInterval) {
             _manifestURL = $"https://raw.githubusercontent.com/{repository}/master/manifest.json";
-            _pluginURL = $"https://raw.githubusercontent.com/{repository}/master/Build/{pluginName}.dll";
+            _pluginURL = $"https://raw.githubusercontent.com/{repository}/master/Build/{pluginName}.zip";
 
             _pluginsPath = Path.Combine(PluginInstance.StoragePath.TrimEnd("Instance".ToCharArray()), "Plugins");
 

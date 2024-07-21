@@ -46,6 +46,9 @@ namespace NewFangServerPlugin {
 
             Save();
 
+            // Setup the GitHub auto updater, That check for updates every 10 minutes on GitHub.
+            new GithubAutoUpdate("AALUND13/NewFang-Server-Plugin", "NewFangServerPlugin", 60000 * 10);
+            // Setup/Start the API Server.
             new APIServer();
         }
 
