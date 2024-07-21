@@ -1,4 +1,5 @@
-﻿using NewFangServerPlugin.Utils;
+﻿using NewFangServerPlugin.Handler;
+using NewFangServerPlugin.Utils;
 using NLog;
 using System.Threading.Tasks;
 using Torch.API.Session;
@@ -71,8 +72,11 @@ namespace NewFangServerPlugin.API.Server {
                 return;
             }
 
+            bool success = int.TryParse(ctx.Request.Query.Elements["Delay"], out int delay);
+            if(!success) delay = 0;
+
             await ctx.Response.Send("Server restarting!");
-            ManagerUtils.Torch.Restart(true);
+            new RestartTimer(delay);
         }
     }
 }
