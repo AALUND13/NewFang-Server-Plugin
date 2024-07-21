@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<PluginManifest xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>Newfang Server Plugin</Name>
+  <Guid>13ea28e8-1928-4111-b5fd-596e1d07c1f5</Guid>
+  <Repository>None</Repository>
+  <Version>v1.0.0</Version>
+</PluginManifest>
