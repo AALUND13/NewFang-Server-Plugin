@@ -2,12 +2,8 @@
 using NewFangServerPlugin.Utils;
 using NLog;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using System.Timers;
 using System.Xml;
 
@@ -27,7 +23,7 @@ namespace NewFangServerPlugin.API {
         private RestartTimer _restartTimer;
 
         public GithubAutoUpdate(string repository, string pluginName, int updateInterval) {
-            _manifestURL = $"https://raw.githubusercontent.com/{repository}/master/manifest.json";
+            _manifestURL = $"https://raw.githubusercontent.com/{repository}/master/manifest.xml";
             _pluginURL = $"https://raw.githubusercontent.com/{repository}/master/Build/{pluginName}.zip";
 
             _pluginsPath = Path.Combine(PluginInstance.StoragePath.TrimEnd("Instance".ToCharArray()), "Plugins");
@@ -37,7 +33,7 @@ namespace NewFangServerPlugin.API {
 
             _updateTimer = new Timer(updateInterval);
             _updateTimer.Elapsed += (sender, e) => CheckForUpdates();
-        }   
+        }
 
         private void CheckForUpdates() {
             if(!AutoUpdateEnabled || _restartTimer != null) return;
@@ -47,19 +43,19 @@ namespace NewFangServerPlugin.API {
             string currentVersion = PluginInstance.Version.ToString();
             string latestVersion = GetVersionFromManifest();
 
-            if (latestVersion != null && currentVersion != latestVersion) {
+            if(latestVersion != null && currentVersion != latestVersion) {
                 Log.Info($"Update available! Current version: {currentVersion}, Latest version: {latestVersion}");
                 Log.Info("Downloading update...");
 
                 ManagerUtils.ChatManagerServer?.SendMessageAsSelf($"'{PluginInstance.Name}' plugin is updating to version {latestVersion}! Please wait...");
                 bool success = downloadLatestVersionPlugin(_pluginsPath, $"{PluginInstance.Name}.dll");
 
-                if (success) {
+                if(success) {
                     Log.Info("Plugin Downloaded Successfully!");
                     ManagerUtils.ChatManagerServer?.SendMessageAsSelf($"'{PluginInstance.Name}' plugin updated to version {latestVersion}! Restarting server...");
                     // Restart the server after 5 minutes
                     // If the server is not running, restart immediately
-                    if(!ManagerUtils.Torch.IsRunning) 
+                    if(!ManagerUtils.Torch.IsRunning)
                         PluginInstance.Torch.Restart();
                     else
                         _restartTimer = new RestartTimer(60 * 5);
@@ -91,7 +87,7 @@ namespace NewFangServerPlugin.API {
         private string GetVersionFromManifest() {
             string version = null;
 
-            using(var client = new System.Net.WebClient()) {
+            using(var client = new WebClient()) {
                 try {
                     string xmlString = client.DownloadString(_manifestURL);
 
