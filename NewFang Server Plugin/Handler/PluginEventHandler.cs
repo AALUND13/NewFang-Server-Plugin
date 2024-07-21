@@ -15,12 +15,11 @@ namespace NewFangServerPlugin.Handler {
         public static void OnMessageRecieved(TorchChatMessage msg, ref bool consumed) {
             if(msg.Channel != ChatChannel.Global) return; // Only process global chat messages
 
-            Log.Info($"Message from {msg.Author}: {msg.Message}");
             foreach (ConnectedWebhookURL webhookURL in PluginInstance.Config.ConnectedWebhookURLs.ToList())
             {
                 WebhookUtils.SendWebhook(webhookURL.WebhookURL, new WebhookMessage {
                     Content = msg.Message,
-                    Username = msg.Author,
+                    Username = $"[Server] {msg.Author}",
                 });
             }
             consumed = true; // Indicating the message has been processed
