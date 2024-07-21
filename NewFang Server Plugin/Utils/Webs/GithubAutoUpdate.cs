@@ -32,6 +32,9 @@ namespace NewFangServerPlugin.API {
 
             _pluginsPath = Path.Combine(PluginInstance.StoragePath.TrimEnd("Instance".ToCharArray()), "Plugins");
 
+            // Immediately check for updates when class first initialized.
+            CheckForUpdates();
+
             _updateTimer = new Timer(updateInterval);
             _updateTimer.Elapsed += (sender, e) => CheckForUpdates();
         }   

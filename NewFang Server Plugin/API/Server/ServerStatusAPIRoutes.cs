@@ -1,6 +1,7 @@
 ﻿using NewFangServerPlugin.Handler;
 using NewFangServerPlugin.Utils;
 using NLog;
+using System;
 using System.Threading.Tasks;
 using Torch.API.Session;
 using WatsonWebserver;
@@ -75,8 +76,16 @@ namespace NewFangServerPlugin.API.Server {
             bool success = int.TryParse(ctx.Request.Query.Elements["Delay"], out int delay);
             if(!success) delay = 0;
 
-            await ctx.Response.Send("Server restarting!");
-            new RestartTimer(delay);
+            (RestartTimer restartTimer, Exception exception) = SafeMethodExecutor.ExecuteSafe(() => new RestartTimer(delay));
+
+            if(exception is TimerAlreadyActiveException timerAlreadyActiveException) {
+                ctx.Response.StatusCode = 400;
+                await ctx.Response.Send("Bad Request: Server is already restarting.");
+            } else if(exception == null) {
+                await ctx.Response.Send("Server restarting!");
+            } else {
+                throw exception;
+            }
         }
     }
 }
