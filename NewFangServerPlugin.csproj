@@ -203,6 +203,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="NewFang Server Plugin\API\Server\MessageAPIRoutes.cs" />
+    <Compile Include="NewFang Server Plugin\API\Server\PlayersAPIRoutes.cs" />
     <Compile Include="NewFang Server Plugin\API\Server\ModsAPIRoutes.cs" />
     <Compile Include="NewFang Server Plugin\API\Server\ServerStatusAPIRoutes.cs" />
     <Compile Include="NewFang Server Plugin\API\Torch\TorchPluginAPIRoutes.cs" />
@@ -211,6 +212,7 @@
     <Compile Include="NewFang Server Plugin\NewFangerverPluginControl.xaml.cs">
       <DependentUpon>NewFangerverPluginControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="NewFang Server Plugin\Structs\PlayerRankChange.cs" />
     <Compile Include="NewFang Server Plugin\Utils\PluginManifestUtils.cs" />
     <Compile Include="NewFang Server Plugin\Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -235,7 +237,7 @@
     <Compile Include="NewFang Server Plugin\Utils\Webs\GithubAutoUpdate.cs" />
     <Compile Include="NewFang Server Plugin\Utils\ManagerUtils.cs" />
     <Compile Include="NewFang Server Plugin\Utils\ModUtil.cs" />
-    <Compile Include="NewFang Server Plugin\Utils\ServerStatusUtil.cs" />
+    <Compile Include="NewFang Server Plugin\Structs\ServerStatusUtil.cs" />
     <Compile Include="NewFang Server Plugin\Handler\TimerHandler.cs" />
     <Compile Include="NewFang Server Plugin\Utils\Webs\WebhookUtils.cs" />
     <EmbeddedResource Include="NewFang Server Plugin\Properties\Resources.resx">

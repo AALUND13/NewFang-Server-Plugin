@@ -24,13 +24,11 @@ namespace NewFangServerPlugin.Handler {
             _onTimerTick = onTimerTick;
             _onCountDownEnd = onCountDownEnd;
 
-            _timeRemaining = time + 1;
-
             CountDown();
 
             _countDownTimer = new Timer(interval);
             _countDownTimer.Elapsed += (sender, e) => CountDown();
-
+            _countDownTimer.Start();
         }
 
         private void CountDown() {

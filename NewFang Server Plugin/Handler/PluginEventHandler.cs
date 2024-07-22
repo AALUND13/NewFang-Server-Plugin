@@ -33,7 +33,7 @@ namespace NewFangServerPlugin.Handler {
 
             foreach(ConnectedWebhookURL webhookURL in PluginInstance.Config.ConnectedWebhookURLs.ToList()) {
                 WebhookUtils.SendWebhook(webhookURL.WebhookURL, new WebhookMessage {
-                    Content = $"Player **{playerName.Substring(1)}** has joined the server.",
+                    Content = $"**{playerName.Substring(1)}** has joined the server.",
                     Username = "Server",
                 });
             }
@@ -42,11 +42,10 @@ namespace NewFangServerPlugin.Handler {
         public static void ClientLeft(ulong steamID, MyChatMemberStateChangeEnum memberStateChangeEnum) {
             if(!steamIdToUsernameDictionary.ContainsKey(steamID)) return;
 
-            Log.Info($"Player {steamIdToUsernameDictionary[steamID]} has {memberStateChangeEnum} the server.");
             foreach(ConnectedWebhookURL webhookURL in PluginInstance.Config.ConnectedWebhookURLs.ToList()) {
                 bool beBannedOrKicked = memberStateChangeEnum == MyChatMemberStateChangeEnum.Kicked || memberStateChangeEnum == MyChatMemberStateChangeEnum.Banned;
                 WebhookUtils.SendWebhook(webhookURL.WebhookURL, new WebhookMessage {
-                    Content = $"**{steamIdToUsernameDictionary[steamID]}** {(beBannedOrKicked ? "was" : "has")} {memberStateChangeEnum}.",
+                    Content = $"**{steamIdToUsernameDictionary[steamID].Substring(1)}** {(beBannedOrKicked ? "was" : "has")} {memberStateChangeEnum.ToString().ToLower()}.",
                     Username = "Server",
                 });
             }

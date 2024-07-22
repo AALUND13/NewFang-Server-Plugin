@@ -1,6 +1,7 @@
-﻿using NLog;
+﻿using NewFangServerPlugin.Utils;
+using Newtonsoft.Json;
+using NLog;
 using Sandbox;
-using Sandbox.Engine.Multiplayer;
 using Sandbox.Engine.Networking;
 using Sandbox.Game.Multiplayer;
 using Sandbox.Game.World;
@@ -8,19 +9,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using Newtonsoft.Json;
-using Torch.Server.Managers;
-using Torch.API.Managers;
-using Torch.API.Session;
-using Torch.Session;
-using Torch.Server.ViewModels;
-using System.Diagnostics;
-using System.Management;
-using Torch.Server;
 using Torch.API;
-using NewFangServerPlugin.Utils;
 
-namespace NewFangServerPlugin.API {
+namespace NewFangServerPlugin.Structs {
     public struct ModInfo {
         public ulong ModID;
         public string ModName;
@@ -64,10 +55,10 @@ namespace NewFangServerPlugin.API {
                 IsRunning = ManagerUtils.Torch.IsRunning,
 
                 ServerName = MySandboxGame.ConfigDedicated.ServerName,
-                
+
                 ServerPublicIP = new IPAddress(BitConverter.GetBytes(ManagerUtils.Torch.IsRunning ? MyGameService.GameServer.GetPublicIP() : 0).Reverse().ToArray()).ToString(),
                 Port = MySandboxGame.ConfigDedicated.ServerPort,
-                
+
                 MaxPlayers = MySandboxGame.ConfigDedicated.SessionSettings.MaxPlayers,
                 Players = MySession.Static?.Players?
                 .GetOnlinePlayers()
@@ -78,11 +69,11 @@ namespace NewFangServerPlugin.API {
                 ModList = ManagerUtils.InstanceManager.DedicatedConfig.Mods
                 .Select(m => new ModInfo(m.PublishedFileId, m.FriendlyName))
                 .ToList() ?? null,
-                
+
                 SimulationSpeed = ManagerUtils.Torch.IsRunning ? Sync.ServerSimulationRatio : 0,
                 Uptime = ((ITorchServer)PluginInstance.Torch).ElapsedPlayTime.ToString()
             };
-            
+
             // Get the mods without the server be online
 
             return status;

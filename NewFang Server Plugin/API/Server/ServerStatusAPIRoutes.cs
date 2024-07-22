@@ -1,4 +1,5 @@
 ﻿using NewFangServerPlugin.Handler;
+using NewFangServerPlugin.Structs;
 using NewFangServerPlugin.Utils;
 using NLog;
 using System;

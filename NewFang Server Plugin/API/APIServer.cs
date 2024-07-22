@@ -1,6 +1,5 @@
 ﻿using NewFangServerPlugin.API.Server;
 using NewFangServerPlugin.API.Torch;
-using NewFangServerPlugin.Configs;
 using NLog;
 using System;
 using System.Collections.Generic;
@@ -52,6 +51,7 @@ namespace NewFangServerPlugin.API {
             ModsAPIRoutes.SetupModsAPIRoutes(server);
             WebhooksAPIRoutes.SetupWebhooksAPIRoutes(server);
             TorchPluginAPIRoutes.SetupTorchPluginAPIRoutes(server);
+            PlayersAPIRoutes.SetupPlayersAPIRoutes(server);
 
             server.Start();
 

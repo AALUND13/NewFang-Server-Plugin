@@ -11,5 +11,6 @@ namespace NewFangServerPlugin.Utils {
         public static IChatManagerServer ChatManagerServer => Torch.CurrentSession?.Managers?.GetManager<IChatManagerServer>();
         public static InstanceManager InstanceManager => Torch.Managers?.GetManager<InstanceManager>();
         public static PluginManager PluginsManager => Torch.Managers?.GetManager<PluginManager>();
+        public static MultiplayerManagerDedicated MultiplayerManager => Torch.CurrentSession?.Managers?.GetManager<MultiplayerManagerDedicated>();
     }
 }

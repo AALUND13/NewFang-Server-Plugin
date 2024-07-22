@@ -4,7 +4,6 @@ using NLog;
 using System;
 using System.IO;
 using System.Linq;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Torch;
 using Torch.API.WebAPI;
@@ -70,8 +69,7 @@ namespace NewFangServerPlugin.API.Torch {
         }
 
         static async Task ListPluginsRoute(HttpContextBase ctx) {
-            string pluginNameKeyPairsJson = JsonConvert.SerializeObject(ManagerUtils.PluginsManager.Plugins.Select(plugin => new
-            {
+            string pluginNameKeyPairsJson = JsonConvert.SerializeObject(ManagerUtils.PluginsManager.Plugins.Select(plugin => new {
                 Name = plugin.Value.Name,
                 Guid = plugin.Key.ToString()
             }));

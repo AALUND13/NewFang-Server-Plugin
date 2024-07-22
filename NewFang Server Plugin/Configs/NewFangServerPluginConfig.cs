@@ -1,5 +1,4 @@
 ﻿using NewFangServerPlugin.Utils;
-using System;
 using Torch;
 using Torch.Collections;
 using Torch.Views;

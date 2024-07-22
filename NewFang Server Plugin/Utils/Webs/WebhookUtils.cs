@@ -1,8 +1,7 @@
-﻿using System.Net;
+﻿using NLog;
+using System.Net;
 using System.Text.Json;
-using System;
 using System.Text.Json.Serialization;
-using NLog;
 
 namespace NewFangServerPlugin.Utils.Webs {
 
