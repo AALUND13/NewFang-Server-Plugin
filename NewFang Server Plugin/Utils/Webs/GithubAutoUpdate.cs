@@ -20,7 +20,6 @@ namespace NewFangServerPlugin.API {
         private string _pluginsPath;
 
         private Timer _updateTimer;
-        private RestartTimer _restartTimer;
 
         public GithubAutoUpdate(string repository, string pluginName, int updateInterval) {
             _manifestURL = $"https://raw.githubusercontent.com/{repository}/master/manifest.xml";
@@ -59,7 +58,7 @@ namespace NewFangServerPlugin.API {
                     if(!ManagerUtils.Torch.IsRunning)
                         PluginInstance.Torch.Restart();
                     else
-                        _restartTimer = new RestartTimer(60 * 5);
+                        new RestartTimer(60 * 5);
                 } else {
                     Log.Error("Failed to download the ZIP file.");
                     ManagerUtils.ChatManagerServer?.SendMessageAsSelf($"'{PluginInstance.Name}' plugin failed to update!");

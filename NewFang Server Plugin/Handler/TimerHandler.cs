@@ -6,7 +6,7 @@ using System.Timers;
 namespace NewFangServerPlugin.Handler {
 
     public class CountDownTimer {
-        public bool CountDownEnabled { get; set; } = true;
+        public bool CountDownEnabled = true;
 
         private Action<int> _onTimerTick { get; set; }
         private Action _onCountDownEnd { get; set; }
@@ -24,6 +24,8 @@ namespace NewFangServerPlugin.Handler {
             _onTimerTick = onTimerTick;
             _onCountDownEnd = onCountDownEnd;
 
+            _timeRemaining = time;
+
             CountDown();
 
             _countDownTimer = new Timer(interval);
@@ -34,8 +36,8 @@ namespace NewFangServerPlugin.Handler {
         private void CountDown() {
             if(!CountDownEnabled) return;
             if(_timeRemaining == 0) {
-                _countDownTimer.Stop();
                 _onCountDownEnd?.Invoke();
+                _countDownTimer.Stop();
             } else {
                 _onTimerTick?.Invoke(_timeRemaining);
                 _timeRemaining--;

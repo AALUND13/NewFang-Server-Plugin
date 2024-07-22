@@ -79,7 +79,7 @@ namespace NewFangServerPlugin.API.Server {
 
             (RestartTimer restartTimer, Exception exception) = SafeMethodExecutor.ExecuteSafe(() => new RestartTimer(delay));
 
-            if(exception is TimerAlreadyActiveException timerAlreadyActiveException) {
+            if(exception != null && exception is TimerAlreadyActiveException timerAlreadyActiveException) {
                 ctx.Response.StatusCode = 400;
                 await ctx.Response.Send("Bad Request: Server is already restarting.");
             } else if(exception == null) {
