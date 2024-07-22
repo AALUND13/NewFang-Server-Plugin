@@ -44,9 +44,9 @@ namespace NewFangServerPlugin.Handler {
 
             Log.Info($"Player {steamIdToUsernameDictionary[steamID]} has {memberStateChangeEnum} the server.");
             foreach(ConnectedWebhookURL webhookURL in PluginInstance.Config.ConnectedWebhookURLs.ToList()) {
-                bool beBannedOrKickedOrDisconnected = memberStateChangeEnum == MyChatMemberStateChangeEnum.Kicked || memberStateChangeEnum == MyChatMemberStateChangeEnum.Banned || memberStateChangeEnum == MyChatMemberStateChangeEnum.Disconnected;
+                bool beBannedOrKicked = memberStateChangeEnum == MyChatMemberStateChangeEnum.Kicked || memberStateChangeEnum == MyChatMemberStateChangeEnum.Banned;
                 WebhookUtils.SendWebhook(webhookURL.WebhookURL, new WebhookMessage {
-                    Content = $"Player **{steamIdToUsernameDictionary[steamID].Substring(1)}** has{(beBannedOrKickedOrDisconnected ? " be" : "")} {memberStateChangeEnum.ToString().ToLower()}{(beBannedOrKickedOrDisconnected ? " from" : "")} the server.",
+                    Content = $"**{steamIdToUsernameDictionary[steamID]}** {(beBannedOrKicked ? "was" : "has")} {memberStateChangeEnum}.",
                     Username = "Server",
                 });
             }
