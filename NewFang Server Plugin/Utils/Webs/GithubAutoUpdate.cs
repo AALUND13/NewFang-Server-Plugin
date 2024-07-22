@@ -9,7 +9,7 @@ using System.Xml;
 
 namespace NewFangServerPlugin.API {
     public class GithubAutoUpdate {
-        public bool AutoUpdateEnabled { get; set; } = true;
+        public bool AutoUpdateEnabled = true;
 
         private static NewFangServerPlugin PluginInstance => NewFangServerPlugin.Instance;
         private static Logger Log => NewFangServerPlugin.Log;
@@ -33,10 +33,11 @@ namespace NewFangServerPlugin.API {
 
             _updateTimer = new Timer(updateInterval);
             _updateTimer.Elapsed += (sender, e) => CheckForUpdates();
+            _updateTimer.Start();
         }
 
         private void CheckForUpdates() {
-            if(!AutoUpdateEnabled || _restartTimer != null) return;
+            if(!AutoUpdateEnabled || RestartTimer.CountDownTimer != null) return;
 
             Log.Info("Checking for updates...");
 

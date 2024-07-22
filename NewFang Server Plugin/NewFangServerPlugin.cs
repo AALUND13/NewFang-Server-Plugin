@@ -2,9 +2,11 @@
 using NewFangServerPlugin.Configs;
 using NewFangServerPlugin.Handler;
 using NewFangServerPlugin.Utils;
+using NewFangServerPlugin.Utils.Webs;
 using NLog;
 using System;
 using System.IO;
+using System.Security.Policy;
 using System.Windows.Controls;
 using Torch;
 using Torch.API;
@@ -59,11 +61,24 @@ namespace NewFangServerPlugin {
                 case TorchSessionState.Loaded:
                     Log.Info("Session Loaded!");
                     PluginEventHandler.Load();
+                    foreach (ConnectedWebhookURL url in Config.ConnectedWebhookURLs)
+                    {
+                        WebhookUtils.SendWebhook(url.WebhookURL, new WebhookMessage() {
+                            Content = "Server has started!",
+                            Username = "Server"
+                        });
+                    }
                     break;
 
                 case TorchSessionState.Unloading:
                     Log.Info("Session Unloading!");
                     PluginEventHandler.Unload();
+                    foreach(ConnectedWebhookURL url in Config.ConnectedWebhookURLs) {
+                        WebhookUtils.SendWebhook(url.WebhookURL, new WebhookMessage() {
+                            Content = "Server is shutting down!",
+                            Username = "Server"
+                        });
+                    }
                     break;
             }
         }
