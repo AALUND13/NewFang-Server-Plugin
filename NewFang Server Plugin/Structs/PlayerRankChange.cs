@@ -11,6 +11,7 @@ namespace NewFangServerPlugin.Structs {
 
     public struct PlayerRankChange {
         public string PlayerName;
+
         public RankChangeType ChangeType;
 
         public MyPromoteLevel OldRank;

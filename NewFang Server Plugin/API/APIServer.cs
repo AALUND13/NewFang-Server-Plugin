@@ -53,6 +53,16 @@ namespace NewFangServerPlugin.API {
             TorchPluginAPIRoutes.SetupTorchPluginAPIRoutes(server);
             PlayersAPIRoutes.SetupPlayersAPIRoutes(server);
 
+            server.Routes.PreAuthentication.Static.Add(HttpMethod.GET, "/api/v1/vaildate/apikey", async ctx => {
+                string apiKey = ctx.Request.Query.Elements["APIKey"];
+                if(PluginInstance.Config.APIKey == apiKey) {
+                    await ctx.Response.Send("API Key is valid!");
+                } else {
+                    ctx.Response.StatusCode = 401;
+                    await ctx.Response.Send("Unauthorized: Invalid API Key");
+                }
+            });
+
             server.Start();
 
             Log.Info($"API Server started at {hostName}:{port}");
