@@ -14,8 +14,8 @@ namespace NewFangServerPlugin.API {
         private static List<string> _connectedWebhookURLs => PluginInstance.Config.ConnectedWebhookURLs.Select(webhook => webhook.WebhookURL).ToList();
 
         public static void SetupWebhooksAPIRoutes(Webserver server) {
-            server.Routes.PreAuthentication.Static.Add(HttpMethod.GET, "/api/v1/webhooks/attach", AttachWebhookRoute, APIServer.APIExceptionHandler);
-            server.Routes.PreAuthentication.Static.Add(HttpMethod.GET, "/api/v1/webhooks/deattach", DeAttachWebhookRoute, APIServer.APIExceptionHandler);
+            server.Routes.PreAuthentication.Parameter.Add(HttpMethod.GET, "/api/v1/webhooks/{webhook.id}/{webhook.token}", AttachWebhookRoute, APIServer.APIExceptionHandler);
+            server.Routes.PreAuthentication.Parameter.Add(HttpMethod.DELETE, "/api/v1/webhooks/{webhook.id}/{webhook.token}", DeAttachWebhookRoute, APIServer.APIExceptionHandler);
         }
         static async Task AttachWebhookRoute(HttpContextBase ctx) {
             if(PluginInstance.Config.APIKey != ctx.Request.Query.Elements["APIKey"]) {
@@ -24,7 +24,13 @@ namespace NewFangServerPlugin.API {
                 return;
             }
 
-            string url = ctx.Request.Query.Elements["URL"];
+            if(string.IsNullOrEmpty(ctx.Request.Url.Parameters["webhook.id"]) || string.IsNullOrEmpty(ctx.Request.Url.Parameters["webhook.token"])) {
+                ctx.Response.StatusCode = 400;
+                await ctx.Response.Send("Bad Request: Webhook ID and Token are required.");
+                return;
+            }
+
+            string url = $"https://discord.com/api/webhooks/{ctx.Request.Url.Parameters["webhook.id"]}/{ctx.Request.Url.Parameters["webhook.token"]}";
 
             if(string.IsNullOrEmpty(url)) {
                 ctx.Response.StatusCode = 400;
@@ -33,10 +39,6 @@ namespace NewFangServerPlugin.API {
             } else if(_connectedWebhookURLs.Contains(url)) {
                 ctx.Response.StatusCode = 400;
                 await ctx.Response.Send("Bad Request: Webhook already attached.");
-                return;
-            } else if(!url.StartsWith("https://discord.com/api/webhooks/")) {
-                ctx.Response.StatusCode = 400;
-                await ctx.Response.Send("Bad Request: Invalid Discord Webhook URL.");
                 return;
             }
 
@@ -53,19 +55,21 @@ namespace NewFangServerPlugin.API {
                 return;
             }
 
-            string url = ctx.Request.Query.Elements["URL"];
+            if(string.IsNullOrEmpty(ctx.Request.Url.Parameters["webhook.id"]) || string.IsNullOrEmpty(ctx.Request.Url.Parameters["webhook.token"])) {
+                ctx.Response.StatusCode = 400;
+                await ctx.Response.Send("Bad Request: Webhook ID and Token are required.");
+                return;
+            }
+
+            string url = $"https://discord.com/api/webhooks/{ctx.Request.Url.Parameters["webhook.id"]}/{ctx.Request.Url.Parameters["webhook.token"]}";
 
             if(string.IsNullOrEmpty(url)) {
                 ctx.Response.StatusCode = 400;
                 await ctx.Response.Send("Bad Request: URL is required.");
                 return;
-            } else if(!_connectedWebhookURLs.Contains(url)) {
+            } else if(_connectedWebhookURLs.Contains(url)) {
                 ctx.Response.StatusCode = 400;
-                await ctx.Response.Send("Bad Request: Webhook already not attached.");
-                return;
-            } else if(!url.StartsWith("https://discord.com/api/webhooks/")) {
-                ctx.Response.StatusCode = 400;
-                await ctx.Response.Send("Bad Request: Invalid Discord Webhook URL.");
+                await ctx.Response.Send("Bad Request: Webhook already attached.");
                 return;
             }
 
