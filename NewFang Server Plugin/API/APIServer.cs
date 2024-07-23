@@ -43,8 +43,8 @@ namespace NewFangServerPlugin.API {
          - Deattach: Deattach webhooks.
         **/
 
-        public APIServer(string hostName = "127.0.0.1", int port = 9860) {
-            Webserver server = new Webserver(new WebserverSettings(hostName, port), DefaultRoute);
+        public APIServer(int port = 9860) {
+            Webserver server = new Webserver(new WebserverSettings("127.0.0.1", port), DefaultRoute);
 
             ServerStatusAPIRoutes.SetupServerStatusRoutes(server);
             MessageAPIRoutes.SetupMessageAPIRoutes(server);
@@ -65,7 +65,7 @@ namespace NewFangServerPlugin.API {
 
             server.Start();
 
-            Log.Info($"API Server started at {hostName}:{port}");
+            Log.Info($"API Server started at 127.0.0.1:{port}");
         }
 
         public static async Task APIExceptionHandler(HttpContextBase ctx, Exception exception) {
