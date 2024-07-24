@@ -239,6 +239,7 @@
     <Compile Include="NewFang Server Plugin\Utils\ModUtil.cs" />
     <Compile Include="NewFang Server Plugin\Structs\ServerStatusUtil.cs" />
     <Compile Include="NewFang Server Plugin\Handler\TimerHandler.cs" />
+    <Compile Include="NewFang Server Plugin\Utils\Webs\PortChecker.cs" />
     <Compile Include="NewFang Server Plugin\Utils\Webs\WebhookUtils.cs" />
     <EmbeddedResource Include="NewFang Server Plugin\Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

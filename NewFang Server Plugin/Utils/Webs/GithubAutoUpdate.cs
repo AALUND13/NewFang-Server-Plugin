@@ -1,5 +1,4 @@
 ﻿using NewFangServerPlugin.Handler;
-using NewFangServerPlugin.Utils;
 using NLog;
 using System;
 using System.IO;
@@ -7,7 +6,7 @@ using System.Net;
 using System.Timers;
 using System.Xml;
 
-namespace NewFangServerPlugin.API {
+namespace NewFangServerPlugin.Utils.Webs {
     public class GithubAutoUpdate {
         public bool AutoUpdateEnabled = true;
 
@@ -51,7 +50,7 @@ namespace NewFangServerPlugin.API {
                 if(success) {
                     Log.Info("Plugin Downloaded Successfully!");
                     ManagerUtils.ChatManagerServer?.SendMessageAsSelf($"'{PluginInstance.Name}' plugin updated to version {latestVersion}! Restarting server...");
-                    
+
                     // Restart the server after 5 minutes
                     // If the server is not running, restart immediately
                     if(!ManagerUtils.Torch.IsRunning)

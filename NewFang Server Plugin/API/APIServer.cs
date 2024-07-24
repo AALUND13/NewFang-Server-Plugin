@@ -1,6 +1,9 @@
 ﻿using NewFangServerPlugin.API.Server;
 using NewFangServerPlugin.API.Torch;
+using NewFangServerPlugin.Configs;
+using NewFangServerPlugin.Utils.Webs;
 using NLog;
+using Sandbox.Engine.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,7 +47,21 @@ namespace NewFangServerPlugin.API {
         **/
 
         public APIServer(int port = 9860) {
-            Webserver server = new Webserver(new WebserverSettings("127.0.0.1", port), DefaultRoute);
+            // Check the url to check the port not in use
+            if (PortChecker.IsPortInUse(port)) {
+                Log.Error($"Port {port} is already in use! Please change the port in the config file.");
+                foreach(ConnectedWebhookURL url in PluginInstance.Config.ConnectedWebhookURLs) {
+                    WebhookUtils.SendWebhook(url.WebhookURL, new WebhookMessage() {
+                        Content = $"Port {port} is already in use! Please change the port in the config file.",
+                        Username = "Server"
+                    });
+                }
+                return;
+            } else {
+                Log.Info($"Port {port} is not in use.");
+            }
+
+            Webserver server = new Webserver(new WebserverSettings("localhost", port), DefaultRoute);
 
             ServerStatusAPIRoutes.SetupServerStatusRoutes(server);
             MessageAPIRoutes.SetupMessageAPIRoutes(server);
@@ -65,7 +82,7 @@ namespace NewFangServerPlugin.API {
 
             server.Start();
 
-            Log.Info($"API Server started at 127.0.0.1:{port}");
+            Log.Info($"API Server started at localhost:{port}");
         }
 
         public static async Task APIExceptionHandler(HttpContextBase ctx, Exception exception) {
