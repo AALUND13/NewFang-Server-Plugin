@@ -46,7 +46,7 @@ namespace NewFangServerPlugin.API {
                 Log.Info("Downloading update...");
 
                 ManagerUtils.ChatManagerServer?.SendMessageAsSelf($"'{PluginInstance.Name}' plugin is updating to version {latestVersion}! Please wait...");
-                bool success = downloadLatestVersionPlugin(_pluginsPath, $"{PluginInstance.Name}.dll");
+                bool success = downloadLatestVersionPlugin(_pluginsPath, $"{PluginInstance.Name}.zip");
 
                 if(success) {
                     Log.Info("Plugin Downloaded Successfully!");
