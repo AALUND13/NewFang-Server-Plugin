@@ -3,8 +3,8 @@ using NLog;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WatsonWebserver;
 using WatsonWebserver.Core;
+using WatsonWebserver.Lite;
 
 namespace NewFangServerPlugin.API {
     public class WebhooksAPIRoutes {
@@ -13,7 +13,7 @@ namespace NewFangServerPlugin.API {
         private static Logger Log => NewFangServerPlugin.Log;
         private static List<string> _connectedWebhookURLs => PluginInstance.Config.ConnectedWebhookURLs.Select(webhook => webhook.WebhookURL).ToList();
 
-        public static void SetupWebhooksAPIRoutes(Webserver server) {
+        public static void SetupWebhooksAPIRoutes(WebserverLite server) {
             server.Routes.PreAuthentication.Parameter.Add(HttpMethod.GET, "/api/v1/webhooks/{webhook.id}/{webhook.token}", AttachWebhookRoute, APIServer.APIExceptionHandler);
             server.Routes.PreAuthentication.Parameter.Add(HttpMethod.DELETE, "/api/v1/webhooks/{webhook.id}/{webhook.token}", DeAttachWebhookRoute, APIServer.APIExceptionHandler);
         }

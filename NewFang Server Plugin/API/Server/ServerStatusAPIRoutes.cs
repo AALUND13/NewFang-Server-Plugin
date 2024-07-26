@@ -5,20 +5,20 @@ using NLog;
 using System;
 using System.Threading.Tasks;
 using Torch.API.Session;
-using WatsonWebserver;
 using WatsonWebserver.Core;
+using WatsonWebserver.Lite;
 
 namespace NewFangServerPlugin.API.Server {
     public static class ServerStatusAPIRoutes {
         private static NewFangServerPlugin PluginInstance => NewFangServerPlugin.Instance;
         private static Logger Log => NewFangServerPlugin.Log;
 
-        public static void SetupServerStatusRoutes(Webserver server) {
+        public static void SetupServerStatusRoutes(WebserverLite server) {
             server.Routes.PreAuthentication.Static.Add(HttpMethod.GET, "/api/v1/server/status", GetStatusRoute, APIServer.APIExceptionHandler);
 
             server.Routes.PreAuthentication.Static.Add(HttpMethod.GET, "/api/v1/server/start", StartRoute, APIServer.APIExceptionHandler);
             server.Routes.PreAuthentication.Static.Add(HttpMethod.GET, "/api/v1/server/stop", StopRoute, APIServer.APIExceptionHandler);
-            server.Routes.PreAuthentication.Static.Add(HttpMethod.GET, "/api/v1/server/restart", RestarRoute, APIServer.APIExceptionHandler);
+            server.Routes.PreAuthentication.Static.Add(HttpMethod.GET, "/api/v1/server/restart", RestartRoute, APIServer.APIExceptionHandler);
         }
 
         static async Task GetStatusRoute(HttpContextBase ctx) {
@@ -67,7 +67,7 @@ namespace NewFangServerPlugin.API.Server {
             }
         }
 
-        static async Task RestarRoute(HttpContextBase ctx) {
+        static async Task RestartRoute(HttpContextBase ctx) {
             if(PluginInstance.Config.APIKey != ctx.Request.Query.Elements["APIKey"]) {
                 ctx.Response.StatusCode = 401;
                 await ctx.Response.Send("Unauthorized: Invalid API Key");

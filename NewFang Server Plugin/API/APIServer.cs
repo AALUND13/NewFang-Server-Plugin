@@ -9,8 +9,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using VRageMath;
-using WatsonWebserver;
 using WatsonWebserver.Core;
+using WatsonWebserver.Lite;
 
 namespace NewFangServerPlugin.API {
     public class APIServer {
@@ -19,7 +19,7 @@ namespace NewFangServerPlugin.API {
 
         private List<string> _connectedWebhookURLs => PluginInstance.Config.ConnectedWebhookURLs.Select(webhook => webhook.WebhookURL).ToList();
 
-        private Webserver _server;
+        private WebserverLite _server;
 
         public ushort Port { get; set; }
 
@@ -87,7 +87,7 @@ namespace NewFangServerPlugin.API {
                 Log.Info($"Port {Port} is not in use.");
             }
 
-            _server = new Webserver(new WebserverSettings("localhost", Port), DefaultRoute);
+            _server = new WebserverLite(new WebserverSettings("localhost", Port), DefaultRoute);
 
             ServerStatusAPIRoutes.SetupServerStatusRoutes(_server);
             MessageAPIRoutes.SetupMessageAPIRoutes(_server);

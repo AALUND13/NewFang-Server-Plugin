@@ -41,6 +41,9 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CavemanTcp, Version=2.0.2.0, Culture=neutral, PublicKeyToken=7d5fb64433fbfdff, processorArchitecture=MSIL">
+      <HintPath>packages\CavemanTcp.2.0.2\lib\net472\CavemanTcp.dll</HintPath>
+    </Reference>
     <Reference Include="IpMatcher, Version=1.0.4.4, Culture=neutral, PublicKeyToken=8637fc2bb9df2c67, processorArchitecture=MSIL">
       <HintPath>packages\IpMatcher.1.0.4.4\lib\net462\IpMatcher.dll</HintPath>
     </Reference>
@@ -193,11 +196,11 @@
       <HintPath>GameBinaries\VRage.Math.XmlSerializers.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="WatsonWebserver, Version=6.2.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Watson.6.2.1\lib\net48\WatsonWebserver.dll</HintPath>
-    </Reference>
     <Reference Include="WatsonWebserver.Core, Version=6.2.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\Watson.Core.6.2.1\lib\net48\WatsonWebserver.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="WatsonWebserver.Lite, Version=6.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Watson.Lite.6.2.1\lib\net48\WatsonWebserver.Lite.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>
@@ -251,7 +254,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="NewFang Server Plugin\NewFangerverPluginControl.xaml">
@@ -260,6 +262,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
     <None Include="README.md" />
     <Resource Include=".gitignore" />
   </ItemGroup>

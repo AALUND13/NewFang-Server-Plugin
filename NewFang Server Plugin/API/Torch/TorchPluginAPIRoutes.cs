@@ -7,8 +7,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Torch;
 using Torch.API.WebAPI;
-using WatsonWebserver;
 using WatsonWebserver.Core;
+using WatsonWebserver.Lite;
 
 namespace NewFangServerPlugin.API.Torch {
     internal class TorchPluginAPIRoutes {
@@ -17,7 +17,7 @@ namespace NewFangServerPlugin.API.Torch {
         private static Logger Log => NewFangServerPlugin.Log;
 
 
-        public static void SetupTorchPluginAPIRoutes(Webserver server) {
+        public static void SetupTorchPluginAPIRoutes(WebserverLite server) {
             server.Routes.PreAuthentication.Static.Add(HttpMethod.GET, "/api/v1/torch/plugin/add", PluginAddRoute, APIServer.APIExceptionHandler);
             server.Routes.PreAuthentication.Static.Add(HttpMethod.GET, "/api/v1/torch/plugin/list", ListPluginsRoute, APIServer.APIExceptionHandler);
             server.Routes.PreAuthentication.Static.Add(HttpMethod.GET, "/api/v1/torch/plugin/remove", PluginRemoveRoute, APIServer.APIExceptionHandler);

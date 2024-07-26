@@ -5,15 +5,15 @@ using System.Threading.Tasks;
 using Torch.Server.ViewModels;
 using Torch.Utils.SteamWorkshopTools;
 using VRage.Game;
-using WatsonWebserver;
 using WatsonWebserver.Core;
+using WatsonWebserver.Lite;
 
 namespace NewFangServerPlugin.API.Server {
     public static class ModsAPIRoutes {
         private static NewFangServerPlugin PluginInstance => NewFangServerPlugin.Instance;
         private static Logger Log => NewFangServerPlugin.Log;
 
-        public static void SetupModsAPIRoutes(Webserver server) {
+        public static void SetupModsAPIRoutes(WebserverLite server) {
             server.Routes.PreAuthentication.Static.Add(HttpMethod.GET, "/api/v1/server/mods/add", AddModRoute, APIServer.APIExceptionHandler);
             server.Routes.PreAuthentication.Static.Add(HttpMethod.GET, "/api/v1/server/mods/remove", RemoveModRoute, APIServer.APIExceptionHandler);
         }
