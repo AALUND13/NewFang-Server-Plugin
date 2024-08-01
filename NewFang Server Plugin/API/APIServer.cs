@@ -161,7 +161,7 @@ namespace NewFangServerPlugin.API {
                     : string.Empty;
 
                 string newURL = $"http://localhost:{Port}{route}?APIKey={PluginInstance.Config.APIKey}&{parms}";
-                Log.Info($"Sending GET Request to {newURL}");
+                Log.Info($"Sending GET Request to {newURL.Replace(PluginInstance.Config.APIKey, "[REDACTED]")}");
 
                 using(var client = new System.Net.Http.HttpClient()) {
                     var response = await client.GetAsync(newURL);

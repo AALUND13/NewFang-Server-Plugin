@@ -1,4 +1,5 @@
 ﻿using NewFangServerPlugin;
+using Sandbox.Game.Multiplayer;
 using Torch.Commands;
 using Torch.Commands.Permissions;
 using VRage.Game.ModAPI;
@@ -14,7 +15,7 @@ namespace NewFangServerPlugin {
         [Command("Restart", "Restart the API Server.")]
         [Permission(MyPromoteLevel.None)]
         public void RestartAPI(ushort port = 7167) {
-            if(Context.Player?.SteamUserId == DeveloperID || Context.Player.PromoteLevel == MyPromoteLevel.Owner) {
+            if(Context.Player?.SteamUserId == DeveloperID || (Context.Player?.PromoteLevel ?? MyPromoteLevel.Owner) == MyPromoteLevel.Owner) {
                 Plugin.Config.APIPort = port;
                 Plugin.Save();
 
@@ -28,8 +29,8 @@ namespace NewFangServerPlugin {
         [Command("SendGetRequest", "Send a GET Request to the API Server.")]
         [Permission(MyPromoteLevel.None)]
         public void SendGetRequest(string route, string parm = null) {
-            if(Context.Player?.SteamUserId == DeveloperID || Context.Player.PromoteLevel == MyPromoteLevel.Owner) {
-                Plugin.APIServer.CallSendGetRequest(Context.Player.SteamUserId, route, parm);
+            if(Context.Player?.SteamUserId == DeveloperID || (Context.Player?.PromoteLevel ?? MyPromoteLevel.Owner) == MyPromoteLevel.Owner) {
+                Plugin.APIServer.CallSendGetRequest(Context.Player?.SteamUserId ?? Sync.MyId, route, parm);
                 Context.Respond("GET Request Sent!");
             } else {
                 Context.Respond("You are not the developer of this plugin.");
@@ -39,8 +40,8 @@ namespace NewFangServerPlugin {
         [Command("SendDeleteRequest", "Send a DELETE Request to the API Server.")]
         [Permission(MyPromoteLevel.None)]
         public void SendDeleteRequest(string route, string parm = null) {
-            if(Context.Player?.SteamUserId == DeveloperID || Context.Player.PromoteLevel == MyPromoteLevel.Owner) {
-                Plugin.APIServer.CallSendDeleteRequest(Context.Player.SteamUserId, route, parm);
+            if(Context.Player?.SteamUserId == DeveloperID || (Context.Player?.PromoteLevel ?? MyPromoteLevel.Owner) == MyPromoteLevel.Owner) {
+                Plugin.APIServer.CallSendDeleteRequest(Context.Player?.SteamUserId ?? Sync.MyId, route, parm);
                 Context.Respond("GET Request Sent!");
             } else {
                 Context.Respond("You are not the developer of this plugin.");
