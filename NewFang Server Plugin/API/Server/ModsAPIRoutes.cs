@@ -11,7 +11,7 @@ using WatsonWebserver.Lite;
 namespace NewFangServerPlugin.API.Server {
     public static class ModsAPIRoutes {
         private static NewFangServerPlugin PluginInstance => NewFangServerPlugin.Instance;
-        private static Logger Log => NewFangServerPlugin.Log;
+        public static readonly Logger Log = LogManager.GetCurrentClassLogger();
 
         public static void SetupModsAPIRoutes(WebserverLite server) {
             server.Routes.PreAuthentication.Static.Add(HttpMethod.GET, "/api/v1/server/mods/add", AddModRoute, APIServer.APIExceptionHandler);
@@ -33,9 +33,9 @@ namespace NewFangServerPlugin.API.Server {
             }
 
             ulong modID = ulong.Parse(ModID);
-            if(ManagerUtils.InstanceManager.DedicatedConfig.Mods.Any(mod => mod.PublishedFileId.ToString() == ModID)) {
+            if(!ManagerUtils.InstanceManager.DedicatedConfig.Mods.Any(mod => mod.PublishedFileId.ToString() == ModID)) {
                 ctx.Response.StatusCode = 400;
-                await ctx.Response.Send("Bad Request: Mod already exists.");
+                await ctx.Response.Send("Bad Request: Mod does not exist.");
                 return;
             }
 

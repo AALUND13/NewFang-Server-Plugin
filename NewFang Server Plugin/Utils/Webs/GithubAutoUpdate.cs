@@ -11,7 +11,7 @@ namespace NewFangServerPlugin.Utils.Webs {
         public bool AutoUpdateEnabled = true;
 
         private static NewFangServerPlugin PluginInstance => NewFangServerPlugin.Instance;
-        private static Logger Log => NewFangServerPlugin.Log;
+        public static readonly Logger Log = LogManager.GetCurrentClassLogger();
 
         private string _manifestURL;
         private string _pluginURL;

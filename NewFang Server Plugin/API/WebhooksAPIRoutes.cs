@@ -10,7 +10,7 @@ namespace NewFangServerPlugin.API {
     public class WebhooksAPIRoutes {
 
         private static NewFangServerPlugin PluginInstance => NewFangServerPlugin.Instance;
-        private static Logger Log => NewFangServerPlugin.Log;
+        public static readonly Logger Log = LogManager.GetCurrentClassLogger();
         private static List<string> _connectedWebhookURLs => PluginInstance.Config.ConnectedWebhookURLs.Select(webhook => webhook.WebhookURL).ToList();
 
         public static void SetupWebhooksAPIRoutes(WebserverLite server) {

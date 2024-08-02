@@ -48,7 +48,6 @@ namespace NewFangServerPlugin.Structs {
     }
     public static class ServerStatusUtil {
         private static NewFangServerPlugin PluginInstance => NewFangServerPlugin.Instance;
-        private static Logger Log => NewFangServerPlugin.Log;
 
         public static ServerStatus GetServerStatus() {
             ServerStatus status = new ServerStatus {

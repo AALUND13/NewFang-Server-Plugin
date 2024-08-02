@@ -11,7 +11,6 @@ using WatsonWebserver.Lite;
 namespace NewFangServerPlugin.API.Server {
     public static class ServerStatusAPIRoutes {
         private static NewFangServerPlugin PluginInstance => NewFangServerPlugin.Instance;
-        private static Logger Log => NewFangServerPlugin.Log;
 
         public static void SetupServerStatusRoutes(WebserverLite server) {
             server.Routes.PreAuthentication.Static.Add(HttpMethod.GET, "/api/v1/server/status", GetStatusRoute, APIServer.APIExceptionHandler);

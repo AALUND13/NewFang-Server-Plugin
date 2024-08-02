@@ -7,7 +7,7 @@ using WatsonWebserver.Lite;
 namespace NewFangServerPlugin.API.Server {
     public static class MessageAPIRoutes {
         private static NewFangServerPlugin PluginInstance => NewFangServerPlugin.Instance;
-        private static Logger Log => NewFangServerPlugin.Log;
+        public static readonly Logger Log = LogManager.GetCurrentClassLogger();
 
         public static void SetupMessageAPIRoutes(WebserverLite server) {
             server.Routes.PreAuthentication.Static.Add(HttpMethod.GET, "/api/v1/server/message/send", SendMessageRoute, APIServer.APIExceptionHandler);

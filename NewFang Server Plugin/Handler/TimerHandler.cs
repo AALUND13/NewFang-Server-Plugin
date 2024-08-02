@@ -38,7 +38,10 @@ namespace NewFangServerPlugin.Handler {
             if(_timeRemaining == 0) {
                 _onCountDownEnd?.Invoke();
                 _countDownTimer.Stop();
-            } else {
+
+                // Prevents the timer triggering the end event multiple times.
+                _timeRemaining--;
+            } else if (_timeRemaining > 0) {
                 _onTimerTick?.Invoke(_timeRemaining);
                 _timeRemaining--;
             }

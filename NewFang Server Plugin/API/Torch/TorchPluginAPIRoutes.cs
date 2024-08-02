@@ -14,8 +14,6 @@ namespace NewFangServerPlugin.API.Torch {
     internal class TorchPluginAPIRoutes {
 
         private static NewFangServerPlugin PluginInstance => NewFangServerPlugin.Instance;
-        private static Logger Log => NewFangServerPlugin.Log;
-
 
         public static void SetupTorchPluginAPIRoutes(WebserverLite server) {
             server.Routes.PreAuthentication.Static.Add(HttpMethod.GET, "/api/v1/torch/plugin/add", PluginAddRoute, APIServer.APIExceptionHandler);

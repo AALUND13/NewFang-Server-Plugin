@@ -12,7 +12,7 @@ using VRage.GameServices;
 namespace NewFangServerPlugin.Handler {
     public class PluginEventHandler {
         private static NewFangServerPlugin PluginInstance => NewFangServerPlugin.Instance;
-        private static Logger Log => NewFangServerPlugin.Log;
+        public static readonly Logger Log = LogManager.GetCurrentClassLogger();
 
         private static Dictionary<ulong, string> steamIdToUsernameDictionary = new Dictionary<ulong, string>();
 

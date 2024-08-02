@@ -15,7 +15,7 @@ using WatsonWebserver.Lite;
 namespace NewFangServerPlugin.API {
     public class APIServer {
         private static NewFangServerPlugin PluginInstance => NewFangServerPlugin.Instance;
-        private static Logger Log => NewFangServerPlugin.Log;
+        public static readonly Logger Log = LogManager.GetCurrentClassLogger();
 
         private List<string> _connectedWebhookURLs => PluginInstance.Config.ConnectedWebhookURLs.Select(webhook => webhook.WebhookURL).ToList();
 
@@ -165,7 +165,6 @@ namespace NewFangServerPlugin.API {
 
                 using(var client = new System.Net.Http.HttpClient()) {
                     var response = await client.GetAsync(newURL);
-                    response.EnsureSuccessStatusCode();
 
                     string responseString = $"\n{await response.Content.ReadAsStringAsync()}";
                     Log.Info($"Response: {responseString}");
