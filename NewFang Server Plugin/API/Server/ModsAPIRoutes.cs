@@ -1,5 +1,6 @@
 ﻿using NewFangServerPlugin.Utils;
 using NLog;
+using Sandbox.Game.World;
 using System.Linq;
 using System.Threading.Tasks;
 using Torch.Server.ViewModels;
@@ -39,6 +40,7 @@ namespace NewFangServerPlugin.API.Server {
                 return;
             }
 
+            MySession.Static?.Mods?.RemoveAll(mod => mod.PublishedFileId == modID);
             ManagerUtils.InstanceManager.DedicatedConfig.Mods.RemoveWhere(mod => mod.PublishedFileId.ToString() == ModID);
             Log.Info($"Mod removed: {ModID}, Restart the server to apply changes.");
             await ctx.Response.Send("Mod removed! Restart the server to apply changes.");
@@ -77,7 +79,10 @@ namespace NewFangServerPlugin.API.Server {
                 await ctx.Response.Send("Bad Request: The item is not a mod.");
                 return;
             }
-
+            MySession.Static?.Mods?.Add(new MyObjectBuilder_Checkpoint.ModItem() {
+                PublishedFileId = modID,
+                FriendlyName = modInfo.Title,
+            });
             ManagerUtils.InstanceManager.DedicatedConfig.Mods.Add(new ModItemInfo(new MyObjectBuilder_Checkpoint.ModItem() {
                 PublishedFileId = modID,
                 FriendlyName = modInfo.Title,
