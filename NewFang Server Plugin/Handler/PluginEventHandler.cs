@@ -15,6 +15,7 @@ namespace NewFangServerPlugin.Handler {
         public static readonly Logger Log = LogManager.GetCurrentClassLogger();
 
         private static Dictionary<ulong, string> steamIdToUsernameDictionary = new Dictionary<ulong, string>();
+        private static bool loaded = false;
 
         public static void OnMessageRecieved(TorchChatMessage msg, ref bool consumed) {
             if(msg.Channel != ChatChannel.Global) return; // Only process global chat messages
@@ -54,17 +55,25 @@ namespace NewFangServerPlugin.Handler {
         }
 
         public static void Load() {
+            if(loaded) return;
+
             Log.Info("Loading event handlers");
             ManagerUtils.ChatManagerServer.MessageRecieved += OnMessageRecieved;
             MyMultiplayer.Static.ClientJoined += ClientJoined;
             MyMultiplayer.Static.ClientLeft += ClientLeft;
+
+            loaded = true;
         }
 
         public static void Unload() {
+            if(!loaded) return;
+
             Log.Info("Unloading event handlers");
             ManagerUtils.ChatManagerServer.MessageRecieved -= OnMessageRecieved;
             MyMultiplayer.Static.ClientJoined -= ClientJoined;
             MyMultiplayer.Static.ClientLeft -= ClientLeft;
+
+            loaded = false;
         }
     }
 }

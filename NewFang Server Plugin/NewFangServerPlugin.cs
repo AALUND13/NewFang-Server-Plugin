@@ -55,10 +55,20 @@ namespace NewFangServerPlugin {
         private void SessionChanged(ITorchSession session, TorchSessionState state) {
 
             switch(state) {
+                case TorchSessionState.Loading:
+                    Log.Info("Session Loading!");
 
+                    foreach(ConnectedWebhookURL url in Config.ConnectedWebhookURLs) {
+                        WebhookUtils.SendWebhook(url.WebhookURL, new WebhookMessage() {
+                            Content = "Server is starting!",
+                            Username = "Server"
+                        });
+                    }
+                    break;
                 case TorchSessionState.Loaded:
                     Log.Info("Session Loaded!");
                     PluginEventHandler.Load();
+
                     foreach(ConnectedWebhookURL url in Config.ConnectedWebhookURLs) {
                         WebhookUtils.SendWebhook(url.WebhookURL, new WebhookMessage() {
                             Content = "Server has started!",
@@ -70,6 +80,7 @@ namespace NewFangServerPlugin {
                 case TorchSessionState.Unloading:
                     Log.Info("Session Unloading!");
                     PluginEventHandler.Unload();
+
                     foreach(ConnectedWebhookURL url in Config.ConnectedWebhookURLs) {
                         WebhookUtils.SendWebhook(url.WebhookURL, new WebhookMessage() {
                             Content = "Server is shutting down!",
