@@ -2,12 +2,8 @@
 using EmbedIO.WebApi;
 using NewFangServerPlugin.Utils;
 using NewFangServerPlugin.Utils.Webs;
-using Newtonsoft.Json;
 using NLog;
 using System;
-using System.IO;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using VRageMath;
 
@@ -73,7 +69,7 @@ namespace NewFangServerPlugin.WebAPI {
 
             _server = CreateWebServer();
             Task.Run(() => _server.RunAsync());
-            Log.Info($"API Server started at http://localhost:{Port}");
+            Log.Info($"API Server started at \"{PluginInstance.Config.URLPrefix}\"");
         }
 
         WebServer CreateWebServer() {
@@ -85,7 +81,7 @@ namespace NewFangServerPlugin.WebAPI {
 
             // Create a WebServer instance and configure routing
             var server = new WebServer(o => o
-                .WithUrlPrefix($"http://localhost:{Port}")
+                .WithUrlPrefix(PluginInstance.Config.URLPrefix)
                 .WithMode(HttpListenerMode.EmbedIO))
             .WithLocalSessionManager()
             .WithModule(webApiModule, m => m

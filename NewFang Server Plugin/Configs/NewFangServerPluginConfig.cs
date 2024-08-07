@@ -20,8 +20,8 @@ namespace NewFangServerPlugin.Configs {
         [Display(Name = "API Port", Description = "The port for the API Server.")]
         public int APIPort { get => _apiPort; set => SetValue(ref _apiPort, value); }
 
-        //private List<string> _connectedWebhookURLs = new List<string>();
-
-        //public List<string> ConnectedWebhookURLs { get => _connectedWebhookURLs; set => SetValue(ref _connectedWebhookURLs, value); }
+        private string _urlPrefix = "http://209.236.114.243:7167/";
+        [Display(Name = "URL Prefix", Description = "The URL prefix for the API Server.")]
+        public string URLPrefix { get => _urlPrefix; set => SetValue(ref _urlPrefix, value); }
     }
 }

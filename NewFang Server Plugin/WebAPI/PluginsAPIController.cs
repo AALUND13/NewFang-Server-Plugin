@@ -30,7 +30,7 @@ namespace NewFangServerPlugin.WebAPI {
 
             PluginFullItem respone = await PluginQuery.Instance.QueryOne(id);
             if(respone == null)
-                throw HttpException.NotFound("Plugin not found");
+                throw HttpException.NotFound("Plugin not found"); 
             else if(!await PluginQuery.Instance.DownloadPlugin(respone))
                 throw HttpException.InternalServerError("Failed to download plugin");
 
