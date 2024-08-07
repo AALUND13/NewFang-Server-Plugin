@@ -1,7 +1,8 @@
-﻿using NewFangServerPlugin.API;
+﻿using HarmonyLib;
 using NewFangServerPlugin.Configs;
 using NewFangServerPlugin.Handler;
 using NewFangServerPlugin.Utils.Webs;
+using NewFangServerPlugin.WebAPI;
 using NLog;
 using System;
 using System.IO;
@@ -15,19 +16,16 @@ using Torch.Session;
 
 namespace NewFangServerPlugin {
     public class NewFangServerPlugin : TorchPluginBase, IWpfPlugin {
-
-        public static readonly Logger Log = LogManager.GetCurrentClassLogger();
-
         private static readonly string CONFIG_FILE_NAME = "NewFangServerPluginConfig.cfg";
 
-        private NewFangServerPluginControl _control;
         public UserControl GetControl() => _control ?? (_control = new NewFangServerPluginControl(this));
-
-        private Persistent<NewFangServerPluginConfig> _config;
+        private NewFangServerPluginControl _control;
 
         public NewFangServerPluginConfig Config => _config?.Data;
+        private Persistent<NewFangServerPluginConfig> _config;
 
         public static NewFangServerPlugin Instance { get; private set; }
+        public static readonly Logger Log = LogManager.GetCurrentClassLogger();
 
         public APIServer APIServer;
 
@@ -45,6 +43,9 @@ namespace NewFangServerPlugin {
                 Log.Warn("No session manager loaded!");
 
             Save();
+
+            Harmony harmony = new Harmony("NewFangServerPlugin");
+            harmony.PatchAll();
 
             // Setup the GitHub auto updater, That check for updates every 10 minutes on GitHub.
             new GithubAutoUpdate("AALUND13/NewFang-Server-Plugin", "NewFangServerPlugin", 60000 * 10);
@@ -65,6 +66,7 @@ namespace NewFangServerPlugin {
                         });
                     }
                     break;
+
                 case TorchSessionState.Loaded:
                     Log.Info("Session Loaded!");
                     PluginEventHandler.Load();
@@ -96,15 +98,12 @@ namespace NewFangServerPlugin {
             var configFile = Path.Combine(StoragePath, CONFIG_FILE_NAME);
 
             try {
-
                 _config = Persistent<NewFangServerPluginConfig>.Load(configFile);
-
             } catch(Exception e) {
                 Log.Warn(e);
             }
 
             if(_config?.Data == null) {
-
                 Log.Info("Create Default Config, because none was found!");
 
                 _config = new Persistent<NewFangServerPluginConfig>(configFile, new NewFangServerPluginConfig());

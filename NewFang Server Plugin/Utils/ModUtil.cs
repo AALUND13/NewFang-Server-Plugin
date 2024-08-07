@@ -18,11 +18,11 @@ namespace NewFangServerPlugin.Utils {
 
         public async static Task<PublishedItemDetails> GetModInfoByID(ulong modID) {
             IEnumerable<ulong> modIDs = new List<ulong> { modID };
-            Dictionary<ulong, PublishedItemDetails> steamWorkshopResponse = await WebAPI.Instance.GetPublishedFileDetails(modIDs);
-
+            Dictionary<ulong, PublishedItemDetails> steamWorkshopResponse = await Torch.Utils.SteamWorkshopTools.WebAPI.Instance.GetPublishedFileDetails(modIDs);
+            
 
             if(steamWorkshopResponse == null || steamWorkshopResponse.Count == 0)
-                throw new Exception($"No details found for the item with ID: {modID}.");
+                throw new NotFoundException(modID);
 
             var itemDetails = steamWorkshopResponse.Values.First();
             //Log.Info($"Mod Details: {JsonConvert.SerializeObject(steamWorkshopResponse)}");
@@ -34,6 +34,11 @@ namespace NewFangServerPlugin.Utils {
                 throw new NotModException(modID);
 
             return itemDetails;
+        }
+
+        public class NotFoundException : Exception {
+            public NotFoundException(ulong publishedFileId)
+                : base($"The item with ID: {publishedFileId} was not found.") { }
         }
 
         public class NotSEWorkshopItemException : Exception {

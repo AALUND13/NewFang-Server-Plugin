@@ -41,14 +41,11 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CavemanTcp, Version=2.0.2.0, Culture=neutral, PublicKeyToken=7d5fb64433fbfdff, processorArchitecture=MSIL">
-      <HintPath>packages\CavemanTcp.2.0.2\lib\net472\CavemanTcp.dll</HintPath>
+    <Reference Include="0Harmony, Version=2.3.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Lib.Harmony.2.3.3\lib\net48\0Harmony.dll</HintPath>
     </Reference>
-    <Reference Include="IpMatcher, Version=1.0.4.4, Culture=neutral, PublicKeyToken=8637fc2bb9df2c67, processorArchitecture=MSIL">
-      <HintPath>packages\IpMatcher.1.0.4.4\lib\net462\IpMatcher.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>packages\Microsoft.Bcl.AsyncInterfaces.8.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    <Reference Include="EmbedIO, Version=3.5.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\EmbedIO.3.5.2\lib\netstandard2.0\EmbedIO.dll</HintPath>
     </Reference>
     <Reference Include="netstandard" />
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -61,9 +58,6 @@
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="RegexMatcher, Version=1.0.8.0, Culture=neutral, PublicKeyToken=68d7f6ae806af85a, processorArchitecture=MSIL">
-      <HintPath>packages\RegexMatcher.1.0.8\lib\net48\RegexMatcher.dll</HintPath>
-    </Reference>
     <Reference Include="Sandbox.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>GameBinaries\Sandbox.Common.dll</HintPath>
@@ -99,35 +93,18 @@
       <HintPath>GameBinaries\SpaceEngineers.ObjectBuilders.XmlSerializers.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    <Reference Include="Swan.Lite, Version=3.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Unosquare.Swan.Lite.3.1.0\lib\net461\Swan.Lite.dll</HintPath>
     </Reference>
+    <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.Management" />
-    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
-    </Reference>
     <Reference Include="System.Numerics" />
-    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Text.Encodings.Web, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>packages\System.Text.Encodings.Web.8.0.0\lib\net462\System.Text.Encodings.Web.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Text.Json, Version=8.0.0.4, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>packages\System.Text.Json.8.0.4\lib\net462\System.Text.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
-    </Reference>
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -135,9 +112,6 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="Timestamps, Version=1.0.9.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Timestamps.1.0.9\lib\net48\Timestamps.dll</HintPath>
-    </Reference>
     <Reference Include="Torch, Version=1.3.1.97, Culture=neutral, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>TorchBinaries\Torch.dll</HintPath>
@@ -152,9 +126,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>TorchBinaries\Torch.Server.exe</HintPath>
       <Private>False</Private>
-    </Reference>
-    <Reference Include="UrlMatcher, Version=2.0.1.0, Culture=neutral, PublicKeyToken=c10f96d28031ea47, processorArchitecture=MSIL">
-      <HintPath>packages\UrlMatcher.2.0.1\lib\net48\UrlMatcher.dll</HintPath>
     </Reference>
     <Reference Include="VRage, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -196,25 +167,14 @@
       <HintPath>GameBinaries\VRage.Math.XmlSerializers.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="WatsonWebserver.Core, Version=6.2.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Watson.Core.6.2.1\lib\net48\WatsonWebserver.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="WatsonWebserver.Lite, Version=6.2.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Watson.Lite.6.2.1\lib\net48\WatsonWebserver.Lite.dll</HintPath>
-    </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="NewFang Server Plugin\API\Server\MessageAPIRoutes.cs" />
-    <Compile Include="NewFang Server Plugin\API\Server\PlayersAPIRoutes.cs" />
-    <Compile Include="NewFang Server Plugin\API\Server\ModsAPIRoutes.cs" />
-    <Compile Include="NewFang Server Plugin\API\Server\ServerStatusAPIRoutes.cs" />
-    <Compile Include="NewFang Server Plugin\API\Torch\TorchPluginAPIRoutes.cs" />
-    <Compile Include="NewFang Server Plugin\API\WebhooksAPIRoutes.cs" />
     <Compile Include="NewFang Server Plugin\Configs\ConnectedWebhookURL.cs" />
     <Compile Include="NewFang Server Plugin\NewFangerverPluginControl.xaml.cs">
       <DependentUpon>NewFangerverPluginControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="NewFang Server Plugin\Patches\InitializerPatch.cs" />
     <Compile Include="NewFang Server Plugin\Structs\PlayerRankChange.cs" />
     <Compile Include="NewFang Server Plugin\Utils\PluginManifestUtils.cs" />
     <Compile Include="NewFang Server Plugin\Properties\AssemblyInfo.cs">
@@ -233,8 +193,7 @@
     <Compile Include="NewFang Server Plugin\NewFangServerPluginCommands.cs" />
     <Compile Include="NewFang Server Plugin\Configs\NewFangServerPluginConfig.cs" />
     <Compile Include="NewFang Server Plugin\NewFangServerPlugin.cs" />
-    <Compile Include="NewFang Server Plugin\API\APIServer.cs" />
-    <Compile Include="NewFang Server Plugin\Utils\SafeMethodExecutor.cs" />
+    <Compile Include="NewFang Server Plugin\WebAPI\APIServer.cs" />
     <Compile Include="NewFang Server Plugin\Utils\TokenGenerator.cs" />
     <Compile Include="NewFang Server Plugin\Handler\PluginEventHandler.cs" />
     <Compile Include="NewFang Server Plugin\Utils\Webs\GithubAutoUpdate.cs" />
@@ -244,6 +203,16 @@
     <Compile Include="NewFang Server Plugin\Handler\TimerHandler.cs" />
     <Compile Include="NewFang Server Plugin\Utils\Webs\PortChecker.cs" />
     <Compile Include="NewFang Server Plugin\Utils\Webs\WebhookUtils.cs" />
+    <Compile Include="NewFang Server Plugin\WebAPI\ChatApiController.cs" />
+    <Compile Include="NewFang Server Plugin\WebAPI\Models\ChatCommandRequest.cs" />
+    <Compile Include="NewFang Server Plugin\WebAPI\Models\ChatMessageRequest.cs" />
+    <Compile Include="NewFang Server Plugin\WebAPI\Models\MessageResponse.cs" />
+    <Compile Include="NewFang Server Plugin\WebAPI\Models\PluginInfoResponse.cs" />
+    <Compile Include="NewFang Server Plugin\WebAPI\ModsAPIController.cs" />
+    <Compile Include="NewFang Server Plugin\WebAPI\PlayersApiController.cs" />
+    <Compile Include="NewFang Server Plugin\WebAPI\PluginsAPIController.cs" />
+    <Compile Include="NewFang Server Plugin\WebAPI\ServerApiController.cs" />
+    <Compile Include="NewFang Server Plugin\WebAPI\WebhooksAPIController.cs" />
     <EmbeddedResource Include="NewFang Server Plugin\Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using Torch.API;
+using VRage.Game.ModAPI;
 
 namespace NewFangServerPlugin.Structs {
     public struct ModInfo {
@@ -22,6 +23,18 @@ namespace NewFangServerPlugin.Structs {
         }
     }
 
+    public struct Player {
+        public string Name;
+        public ulong IdentityID;
+        public MyPromoteLevel Rank;
+
+        public Player(string name, ulong identityID, MyPromoteLevel rank) {
+            Name = name;
+            IdentityID = identityID;
+            Rank = rank;
+        }
+    }
+
     public struct ServerStatus {
         public bool IsRunning;
 
@@ -31,7 +44,7 @@ namespace NewFangServerPlugin.Structs {
         public int Port;
 
         public int MaxPlayers;
-        public List<string> Players;
+        public List<Player> Players;
 
         public List<ModInfo> ModList;
 
@@ -59,11 +72,9 @@ namespace NewFangServerPlugin.Structs {
                 Port = MySandboxGame.ConfigDedicated.ServerPort,
 
                 MaxPlayers = MySandboxGame.ConfigDedicated.SessionSettings.MaxPlayers,
-                Players = MySession.Static?.Players?
-                .GetOnlinePlayers()
-                .Where(x => x.IsRealPlayer && !string.IsNullOrEmpty(x.DisplayName))
-                .Select(p => p.DisplayName)
-                .ToList() ?? new List<string>(),
+                Players = ManagerUtils.MultiplayerManager.Players.Values.ToArray()
+                .Select(p => new Player(p.Name, p.SteamId, p.PromoteLevel))
+                .ToList() ?? new List<Player>(),
 
                 ModList = ManagerUtils.InstanceManager.DedicatedConfig.Mods
                 .Select(m => new ModInfo(m.PublishedFileId, m.FriendlyName))

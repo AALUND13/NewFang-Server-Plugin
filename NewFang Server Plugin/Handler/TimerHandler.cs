@@ -85,6 +85,10 @@ namespace NewFangServerPlugin.Handler {
             Log.Info("Restarting server...");
             PluginInstance.Torch.Restart();
         }
+
+        public static bool IsAlreadyActive() {
+            return CountDownTimer != null;
+        }
     }
 
     public class TimerAlreadyActiveException : Exception {
